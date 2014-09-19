@@ -1,0 +1,437 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.3.2.css">
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style>
+		.havebg {
+			background-image: url(assets/bg.gif);
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+	</style>
+
+</head>
+<body>
+	<div data-role="page" id="gamepage" class="havebg">
+		<div data-role="header" data-position="fixed">
+
+		
+		</div>
+		<div data-role="content">
+			<br /><br />
+		<div id="gamemenu" style="display:none">
+				<div id="developermode" style="display:none">
+					<div id="asdf">Music Player here</div>
+					<div id="ghjk">Music Player here2</div>
+					<input type="text" name="" id="testArray" />
+					<input type="text" name="" id="correct"  disabled />
+				</div>
+			
+			<label for="">Score:</label>
+			<input type="text" name="" id="score" placeholder="Score ng player" disabled /><br />
+			<label for=""> Timer: </label>
+			<input type="text" name="" id="time" placeholder="timer" disabled />
+			<label for="">Question</label>
+			<textarea name="" id="question" cols="30" rows="10" disabled></textarea><br />
+			
+			
+			
+
+			<label for="">Choices</label>
+			<input type="button" value="" id="choice1" class="btn-choice" />
+			<input type="button" value="" id="choice2" class="btn-choice" />
+			<input type="button" value="" id="choice3" class="btn-choice" />
+			<input type="button" value="" id="choice4" class="btn-choice" />
+			
+			<div data-role="popup" id="popupBasic" data-theme="a" class="ui-content" data-position-to="#score" data-transition="flow">
+			<div id="txtcomplement">Complement here</div>
+			</div>
+			</div>
+			
+			
+			<div data-role="popup" id="popupReady" data-theme="b" class="ui-content"  data-overlay-theme="a" data-transition="flip">
+			<div id="txtReady">Ready text</div>
+			</div>
+	
+			
+			
+			
+		</div>
+
+
+
+	</div>
+
+	
+	
+</body>
+
+<script src="phonegap.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+									
+				var myRsgTimer = "";
+				var myTimer= "";  	
+				var rsg =3; //declare some variables for the ready set go
+	startRsg();
+
+		var x = 0;//index for the splice function
+		var crossfade ="0";
+		
+	
+	
+		
+		$(".btn-choice").click(function(){
+			
+				//check answer 
+				var answer = $(this).val();
+				var correctAnswer = $("#correct").val();
+	
+				if(answer == correctAnswer){
+					addScore();
+					getQuestion();
+				}else{
+					gameOver();
+					gameStart();
+				}
+		
+		
+		
+			
+		});
+		
+		
+	
+		
+		function getQuestionsIndexes(){
+			setTimeout(function(){
+				var questionsIndexes = [0,1,2,3,4,5,6,7,8,9];
+				var	randomizeIndexes = [];
+				var	i = questionsIndexes.length;
+				var	j = 0;
+
+				while (i--) {
+					j = Math.floor(Math.random() * (i+1));
+					randomizeIndexes.push(questionsIndexes[j]);
+					questionsIndexes.splice(j,1);
+				}
+				
+				questionsArray = randomizeIndexes; // randomize indexes
+				$("#testArray").val(questionsArray);
+				getQuestion();
+			},50);
+		};
+		
+		function getQuestion() {
+			var qwert= $("#testArray").val();
+			//alert(qwert);
+			if (qwert == "") {
+				//alert("congrats you finished the quiz");
+			var gameOver = $("#score").val();
+			window.localStorage.setItem("lastscore", gameOver);
+			location.href="score.html";
+				
+			
+			}
+			else {
+							//array of questions and answers start
+						var data =[{
+		"id":"0",
+		"song":"songs/halaga.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Malabong Mundo",
+		"choice2":"Pangarap Ko",
+		"choice3":"Halaga",
+		"choice4":"Parokya ni Edgar",
+		"correct":"Halaga"
+	},
+	{
+		"id":"1",
+		"song":"songs/Ang Huling El Bimbo.mp3",
+		"question":"Sino ang kumanta ng kantang to?",
+		"choice1":"Spongecola",
+		"choice2":"Eraserheads",
+		"choice3":"Bamboo",
+		"choice4":"Nakapagtataka",
+		"correct":"Eraserheads"
+	},
+	{
+		"id":"2",
+		"song":"songs/Buko.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Ewan",
+		"choice2":"Pangarap Ko",
+		"choice3":"Niyog",
+		"choice4":"Buko",
+		"correct":"Buko"
+	},
+	{
+		"id":"3",
+		"song":"songs/Huling Sayaw.mp3",
+		"question":"Sinong kumanta ng kantang to?",
+		"choice1":"Nakapagtataka",
+		"choice2":"Paalam",
+		"choice3":"Kamikazee Feat. Kyla",
+		"choice4":"Parokya ni Edgar",
+		"correct":"Kamikazee Feat. Kyla"
+	},
+	
+	{
+		"id":"4",
+		"song":"songs/Hallelujah.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Hallelujah",
+		"choice2":"Luya",
+		"choice3":"Itlog",
+		"choice4":"Tindig",
+		"correct":"Hallelujah"
+	},
+	
+	{
+		"id":"5",
+		"song":"songs/Magkabilang Mundo.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Bakit",
+		"choice2":"Akin",
+		"choice3":"Magkabilang Mundo",
+		"choice4":"Mundo",
+		"correct":"Magkabilang Mundo"
+	},
+	
+	{
+		"id":"6",
+		"song":"songs/Halik.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Halik",
+		"choice2":"Aba",
+		"choice3":"Tagpuan",
+		"choice4":"Kahit",
+		"correct":"Halik"
+	},
+	
+	{
+		"id":"7",
+		"song":"songs/Gitara.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Gitara",
+		"choice2":"Kamikazee",
+		"choice3":"Lamang",
+		"choice4":"Juan",
+		"correct":"Gitara"
+	},
+	
+	{
+		"id":"8",
+		"song":"songs/Kahit Maputi Na Ang Buhok Ko.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Kahit Maputi Na Ang Buhok Ko",
+		"choice2":"Puti",
+		"choice3":"Yakap",
+		"choice4":"Again",
+		"correct":"Kahit Maputi Na Ang Buhok Ko"
+	},
+	
+	{
+		"id":"9",
+		"song":"songs/Trip Lang.mp3",
+		"question":"Ano ang title ng kantang to?",
+		"choice1":"Ikaw Lang",
+		"choice2":"Kembot Lang",
+		"choice3":"Brip Lang",
+		"choice4":"Trip Lang",
+		"correct":"Trip Lang"
+	}
+	];
+	
+	
+						var get = questionsArray[0];
+
+						var question = data[get].question;
+						var choice1 = data[get].choice1;
+						var choice2 = data[get].choice2;
+						var choice3 = data[get].choice3;
+						var choice4 = data[get].choice4;
+						var correct = data[get].correct;
+						var mysong1 = data[get].song;
+						//alert(mysong1);
+						$("#question").val(question);
+						
+						$("#choice1").val(choice1);
+						$("#choice2").val(choice2);
+						$("#choice3").val(choice3);
+						$("#choice4").val(choice4);
+						
+						$('#choice1').prev('span').find('span.ui-btn-text').text(choice1);
+						$("#choice2").prev('span').find('span.ui-btn-text').text(choice2);
+						$("#choice3").prev('span').find('span.ui-btn-text').text(choice3);
+						$("#choice4").prev('span').find('span.ui-btn-text').text(choice4);
+						
+						//crossfade assignment 
+						if(crossfade=="1"){
+						
+						crossfade="0";
+						}
+						else{
+					
+					crossfade="1";
+						
+						}
+						
+						$("#correct").val(correct);
+					/*	$("#myvid").animate({ volume: 0 }, 11000); */
+						var removed = questionsArray.splice(x, 1); // splice remove the current song
+						$("#testArray").val(questionsArray);
+						
+						playAudio(mysong1);
+			
+
+			}
+
+		};
+		
+				function playAudio(src) {
+		if (device.platform == 'Android') {
+		src = '/android_asset/www/songs/' + src;
+		}
+			 
+		var media = new Media(src, success, error_error);
+		 
+		media.play();
+		}
+			function success() {
+			// ignore
+			}
+			 
+			function error_error(e) {
+			alert('great error');
+			alert(e.message);
+			}
+
+		function gameStart(){
+			reset();
+			getQuestionsIndexes();
+			
+		};
+		function addScore(){
+			m = 10;
+			var bonuspoints = parseInt($("#time").val()) + 5 ;  // points for every correct answer 5 for default and a point for each second left on the timer
+			
+			var a = parseInt($("#score").val()) + bonuspoints;
+			
+			$("#score").val(a);
+			
+		$( "#popupBasic" ).popup( "close" );
+		$( "#popupBasic" ).popup( "close" );	//popup closed multiple times for bug fixes not being able to continue after pressing below two seconds
+		$( "#popupBasic" ).popup( "close" );
+		$( "#popupBasic" ).popup( "close" );
+		var c  = ['Naks!','Astig!','Magaling!','Malupet!','Maliksi!','Tama!','Aba Matinde!'];
+		var randNum = Math.floor(Math.random()*7);
+		$("#popupBasic").html(c[randNum] + " +" + bonuspoints);		//alert a complement for the player and his bonus score
+	
+		$("#popupBasic").popup("open");
+		}
+		function reset(){
+			var score = 0; //player's SCORE
+		
+			$("#score").val(score);			//set the score
+			
+			
+		};
+		
+		function gameOver(){
+			
+			var gameOver = $("#score").val();		// store in localstorage the score to be transferred on the next form
+			window.localStorage.setItem("lastscore", gameOver);
+			location.href="score.html";
+			
+		};
+				var d=new Date();		//the ready set go timer
+					mytime=d.getSeconds();
+					mytime=d.getMinutes();
+					myTime=setInterval(function(){myTimer1()},1000);  
+		                  var m=10;
+					function myTimer1()
+					{
+					var time=document.getElementById("time").value=m;
+					m--;
+					$("time").val(m);
+					
+					
+					if(m==0)
+					{
+				//	alert("Game Over!!! Try Again"+'\n'+"You have to quit the game...");
+					clearTimeout(myTime);
+					clearInterval(myTime);
+					var gameOver = $("#score").val();
+					window.localStorage.setItem("lastscore", gameOver);
+					location.href="score.html";
+					}
+					else if(m==8){
+					/*	if(crossfade=="0"){
+						$("#myvid2").animate({ volume: 0 }, 2000);	//after two seconds lessen the volume of the last track to create a crossfade effect
+						}
+						else{
+						$("#myvid").animate({ volume: 0 }, 2000);
+						}
+				*/	
+					$( "#popupBasic" ).popup( "close" );
+					$( "#popupBasic" ).popup( "close" );
+					$( "#popupBasic" ).popup( "close" );
+					$( "#popupBasic" ).popup( "close" );
+					}
+					}
+
+
+
+		function startRsg(){
+
+			clearTimeout(myRsgTimer);
+			clearInterval(myRsgTimer);
+			setTimeout(function(){
+			myRsgTimer = setInterval(function(){myRsgTimer1()},1000);
+			});					// main timer for the ready set go
+		}
+	
+		function myRsgTimer1(){
+		
+			setTimeout(function(){
+			
+			});
+	
+			if(rsg == 3){
+				$("#txtReady").html("Ready!");
+				$( "#popupReady" ).popup( "open" );
+		
+			}
+			if(rsg == 2){
+				$("#txtReady").html("Set!");
+		
+			}
+			if(rsg == 1){
+				$("#txtReady").html("GO!!!");
+	
+			}
+		
+			if(rsg==0){
+
+			clearTimeout(myRsgTimer);
+			clearTimeout(myRsgTimer);
+
+			$( "#popupReady" ).popup( "close" );
+			m=10;
+			gameStart(); //start the game
+			$('#gamemenu').fadeIn("slow");
+			}
+				rsg--;
+		}				
+			/* -------------------------------------- functions END --------------------------------------------------------------------*/
+		
+	});
+
+</script>
+</html>

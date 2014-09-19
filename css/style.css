@@ -1,0 +1,11 @@
+		@font-face {
+			font-family: 'NO';
+			src:url('NO.ttf') format('truetype');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		body * {
+			font-family: "NO" !important;
+			font-weight: bold !important;
+		}

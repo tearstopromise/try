@@ -1,0 +1,86 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.3.2.css">
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style>
+		.havebg {
+			background-image: url(assets/home.jpg);
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+	</style>
+
+</head>
+<body onload="getLeaderboard()">
+	<div data-role="page" id="leaderboardpage" class="havebg">
+		<div data-role="header" data-position="fixed">
+
+			<h1>Leaderboard</h1>
+		</div>
+		<div data-role="content">
+			<center>
+				<img src="assets/title.png" style="max-width:90% ">
+
+				<table data-role="table" id="leaderboardTable" data-mode="reflow" class="ui-responsive" border="1">
+					<thead>
+
+						<tr>
+							<th data-priority ="1">Rank</th>
+							<th data-priority="1">Username</th>
+							<th data-priority="1">Score</th>
+						</tr>
+
+					</thead>
+				</table>
+
+
+</div>
+
+
+
+	</div>
+
+
+
+
+
+	
+	
+</body>
+
+<script>
+
+		
+			function getLeaderboard(){
+		
+		var rank = 0;
+		$(".leaderboardRow").remove();
+		$.ajax({
+			url: "quiz_online_files/display_leaderboard.php",
+			type: "GET",
+			dataType: "json",
+			success: function(data){
+				
+				for(var i=0;i<data.length;i++){			//fetch some high scorers
+					rank++
+					$('#leaderboardTable').append(
+					'<tr class="leaderboardRow"><td>'+ rank + '</td><td>'+data[i].user_username+ '</td><td>'+data[i].score_score+'</td> </tr>'
+					
+					);
+				}
+			},
+			error: function(){
+				//do something if error
+			}
+			
+		});
+	}
+	
+	
+</script>
+</html>

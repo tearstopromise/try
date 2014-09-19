@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.3.2.css">
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style>
+		.havebg {
+			background-image: url(assets/home.jpg);
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+
+
+	</style>
+
+</head>
+<body>
+	<div data-role="page" id="registerpage" class="havebg">
+		<div data-role="header" data-position="fixed">
+
+			<h1>Register to OPM Henyo</h1>
+		</div>
+		<div data-role="content">
+			<center>
+				<img src="assets/title.png" style="max-width:90% "><br />
+				<h1>Register </h1>
+
+				<div id="popuptext"></div>
+				<h2 id="regErrorMsg"></h2>
+			</center>
+				<form role="form" id="regForm" action="javascript:verifyRegfirst()">
+					
+					
+					<input type="text" name="username" id="username" placeholder="username" required />
+					<input type="email" name="email" id="uemail" placeholder="example@yahoo.com" required />
+					<input type="password" name="password" id="upassword" placeholder="password" />
+					<input type="password" id="ucpassword" placeholder="confirm password" />
+					<input type="submit" value="Register" id="registerUser" />
+				</form>
+
+</div>
+
+
+
+	</div>
+	
+
+
+
+<script type="text/javascript">
+
+	function verifyRegfirst(){
+	var rform = $("#regForm");
+		if($( "#username" ).val() == "" || $( "#upassword" ).val() == "" || $( "#uemail" ).val() == "" || $( "#ucpassword" ).val() == "")
+		{
+			$("#popuptext").html("<h2>Please Complete the Form</h2>");
+			
+		}else if($("#upassword").val() != $("#ucpassword").val()){
+		
+			$("#popuptext").html("<h2>Password did not match</h2>");
+			
+		}else{
+			$.getJSON("quiz_online_files/register_check.php?callback=?",rform.serialize(), function(data)
+			{
+			
+				if (data.eexists == "exists")		//check if email exists
+				{
+					$("#popuptext").html("<h4>The email address is already use.</h4>");
+				}
+				else if(data.uexists == "exists")
+				{									//check if username already taken
+					
+					$("#popuptext").html("<h4>This username is already in use.</h4>");
+
+				}
+				else
+				{
+					$.getJSON("quiz_online_files/register_user.php?callback=?",rform.serialize(), function(data)
+					{
+						$("#username").val("");
+						$("#uemail").val("");
+						$("#upassword").val("");
+						$("#ucpassword").val("");
+						//modal regcomplete
+						$("#popuptext").html("<h6>Registration Complete!</h6>");
+						//check if login
+						var a = window.localStorage.getItem("username");
+						if(a == "null" || a == "" || a == "undefined"){
+							location.href = "login.html";		//set localstorage to username then navigate to index
+							
+						}else{
+
+							alert("2"); // alert for not connected status
+						}
+						
+					}).fail(function(){
+					
+						$("#popuptext").html("<h4>Registration Failed!</h4>"); // fail :<
+					});
+
+				}
+			}).fail(function(data){
+				
+				$("#popuptext").html("<h4>Problem with your login, Please check internet connection or try again later.</h4>");
+				// no internet
+				
+			});
+		}
+	}
+		
+	</script>
+
+</body>
+
+</html>
