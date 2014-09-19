@@ -298,10 +298,21 @@
 		if (device.platform == 'Android') {
 		src = '/android_asset/www/' + src;
 		}
-			 
-		var media = new Media(src, success, error_error);
+						if(crossfade=="1"){
+							var media1 = new Media(src, success, error_error);
+							media1.play();
+						}
+						else{
+					
+					var media2 = new Media(src, success, error_error);
+							media2.play();
+						
+						}	 
+	
 		 
-		media.play();
+		 
+		 
+	
 		}
 			function success() {
 			// ignore
@@ -372,13 +383,18 @@
 					location.href="score.html";
 					}
 					else if(m==8){
-					/*	if(crossfade=="0"){
-						$("#myvid2").animate({ volume: 0 }, 2000);	//after two seconds lessen the volume of the last track to create a crossfade effect
+						if(crossfade=="0"){
+												setTimeout(function() {
+						media2.setVolume('1.0');
+						}, 800);
 						}
 						else{
-						$("#myvid").animate({ volume: 0 }, 2000);
+						
+						setTimeout(function() {
+						media1.setVolume('1.0');
+						}, 800);
 						}
-				*/	
+				
 					$( "#popupBasic" ).popup( "close" );
 					$( "#popupBasic" ).popup( "close" );
 					$( "#popupBasic" ).popup( "close" );
