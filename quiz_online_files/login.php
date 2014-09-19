@@ -2,11 +2,7 @@
 
 
 
-	$host = "localhost";
-	$user = "root";
-	$pass = "";
-	$db = "db_quiz";
-	
+	include 'config.php';
 	
 	
 	$conn = @mysqli_connect ($host,$user,$pass,$db) OR die ('Could not connect to

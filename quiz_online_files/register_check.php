@@ -1,8 +1,5 @@
 <?php 
-$host = "localhost";
-	$user = "root";
-	$pass = "";
-	$db = "db_quiz";
+	include 'config.php';
 	
 	
 	

@@ -79,13 +79,19 @@
 				}
 				else
 				{
-					$.getJSON("quiz_online_files/register_user.php?callback=?",rform.serialize(), function(data)
+						$.mobile.loading('show', {
+			text: 'Connecting to Server',
+			textVisible: true,
+			theme: 'a',
+			});
+					$.getJSON("http://opmhenyo.url.ph/quiz_online_files/register_user.php?callback=?",rform.serialize(), function(data)
 					{
 						$("#username").val("");
 						$("#uemail").val("");
 						$("#upassword").val("");
 						$("#ucpassword").val("");
 						//modal regcomplete
+						$.mobile.loading('hide');
 						$("#popuptext").html("<h6>Registration Complete!</h6>");
 						//check if login
 						var a = window.localStorage.getItem("username");
@@ -98,13 +104,13 @@
 						}
 						
 					}).fail(function(){
-					
+					$.mobile.loading('hide');
 						$("#popuptext").html("<h4>Registration Failed!</h4>"); // fail :<
 					});
 
 				}
 			}).fail(function(data){
-				
+				$.mobile.loading('hide');
 				$("#popuptext").html("<h4>Problem with your login, Please check internet connection or try again later.</h4>");
 				// no internet
 				

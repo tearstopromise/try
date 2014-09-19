@@ -55,7 +55,12 @@
 			$("#login_popuptext").html("<h2>Please Enter Username/Password</h2>");
 		return;
 		}
-			$.getJSON("quiz_online_files/login.php?callback=?",lform.serialize(), function(data)
+		$.mobile.loading('show', {
+			text: 'Logging In',
+			textVisible: true,
+			theme: 'a',
+			});
+			$.getJSON("http://opmhenyo.url.ph/quiz_online_files/login.php?callback=?",lform.serialize(), function(data)
 			{
 			
 				if (data.allow == "yes")
@@ -68,18 +73,21 @@
 				}
 				else if(data.allow == "no")				//responses  no - does not exist maybe= incoreect password and none problem with internet
 				{
+				$.mobile.loading('hide');
 					$("#login_popuptext").html("<h6>The account you've entered is not registered.</h6>");
 
 				}
 				else if(data.allow == "maybe")
 				{
+				$.mobile.loading('hide');
 					$("#login_popuptext").html("<h6>Incorrect password. Please Try Again</h6>");
 
 				}else{
+				$.mobile.loading('hide');
 					$("#login_popuptext").html("<h6>Problem with your login, Please check internet connection or try again later.</h6>");
 				}
 			}).fail(function(data){
-				
+				$.mobile.loading('hide');
 				$("#login_popuptext").html("<h6>Problem with your login, Please check internet connection or try again later.</h6>");
 				
 				
