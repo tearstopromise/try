@@ -74,7 +74,8 @@
 <script src="phonegap.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-									
+				var media2;
+				var media1;
 				var myRsgTimer = "";
 				var myTimer= "";  	
 				var rsg =3; //declare some variables for the ready set go
@@ -385,13 +386,13 @@
 					else if(m==8){
 						if(crossfade=="0"){
 												setTimeout(function() {
-						media2.setVolume('0.0');
+						media1.setVolume('0.0');
 						}, 800);
 						}
 						else{
 						
 						setTimeout(function() {
-						media1.setVolume('0.0');
+						media2.setVolume('0.0');
 						}, 800);
 						}
 				
