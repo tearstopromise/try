@@ -19,7 +19,7 @@
 		</style>
 	
 </head>
-<body>
+<body onload="playAudio('songs/Hard_Rock_Instrumental.mp3')">
 	<div data-role="page" id="mainpage" class="havebg">
 		<div data-role="header" data-position="fixed">
 
@@ -108,6 +108,7 @@ alert(e.message);
 }
 	//checked if loged in
 	$(document).ready(function(){
+	
 	var localStorageUsername = window.localStorage.getItem("username");
 
 		if(localStorageUsername == "" || localStorageUsername == null){
