@@ -87,6 +87,7 @@
 						$("#ucpassword").val("");
 						//modal regcomplete
 						$("#popuptext").html("<h6>Registration Complete!</h6>");
+						setTimeout(function(){window.location.assign("login.html")},2000);
 						//check if login
 						var a = window.localStorage.getItem("username");
 						if(a == "null" || a == "" || a == "undefined"){
@@ -94,12 +95,12 @@
 							
 						}else{
 
-							alert("2"); // alert for not connected status
+							alert("Check your internet connection."); // alert for not connected status
 						}
 						
 					}).fail(function(){
 					
-						$("#popuptext").html("<h4>Registration Failed!</h4>"); // fail :<
+						$("#popuptext").html("<h4>Registration Failed!Check your internet connection.</h4>"); // fail :<
 					});
 
 				}
