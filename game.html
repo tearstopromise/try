@@ -26,7 +26,7 @@
 		<div data-role="content">
 			<br /><br />
 		<div id="gamemenu" style="display:none">
-				<div id="developermode" style="display:none">
+				<div id="developermode" <!--style="display:none"-->>
 					<div id="asdf">Music Player here</div>
 					<div id="ghjk">Music Player here2</div>
 					<input type="text" name="" id="testArray" />
@@ -1163,7 +1163,7 @@
 						$("#choice2").prev('span').find('span.ui-btn-text').text(choice2);
 						$("#choice3").prev('span').find('span.ui-btn-text').text(choice3);
 						$("#choice4").prev('span').find('span.ui-btn-text').text(choice4);
-						
+
 						//crossfade assignment 
 						if(crossfade=="1"){
 						
@@ -1196,12 +1196,20 @@
 			var media1 = new Media(src, success, error_error);
 
 			media1.play();
+			setTimeout(function () {
+				media1.setVolume('0.0');
+			}, 9000);
+		
 		}
 		else {
 
 			var media2 = new Media(src, success, error_error);
 
 			media2.play();
+			setTimeout(function () {
+				media2.setVolume('0.0');
+			}, 9000);
+	}
 
 		}
 	
@@ -1209,7 +1217,7 @@
 		 
 		 
 	
-		}
+		
 			function success() {
 			// ignore
 			}
@@ -1277,6 +1285,11 @@
 				location.href = "score.html";
 			}
 			else if (m == 8) {
+
+				$("#popupBasic").popup("close");
+				$("#popupBasic").popup("close");
+				$("#popupBasic").popup("close");
+				$("#popupBasic").popup("close");
 				if (crossfade == "0") {
 			
 					
@@ -1297,10 +1310,6 @@
 
 				}
 
-				$("#popupBasic").popup("close");
-				$("#popupBasic").popup("close");
-				$("#popupBasic").popup("close");
-				$("#popupBasic").popup("close");
 			}
 		}
 
