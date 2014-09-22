@@ -1191,19 +1191,19 @@
 		if (device.platform == 'Android') {
 		src = '/android_asset/www/' + src;
 		}
-						if(crossfade=="1"){
-						
-							var media1 = new Media(src, success, error_error);
-						
-							media1.play();
-														s
-						else{
-			
-					var media2 = new Media(src, success, error_error);
-							
-							media2.play();
-						
-						}	 
+		if (crossfade == "1") {
+
+			var media1 = new Media(src, success, error_error);
+
+			media1.play();
+		}
+		else {
+
+			var media2 = new Media(src, success, error_error);
+
+			media2.play();
+
+		}
 	
 		 
 		 
