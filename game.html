@@ -135,10 +135,8 @@
 		
 		function getQuestion() {
 			var qwert= $("#testArray").val();
-			//alert(qwert);
-			if (qwert == "") {
-				//alert("congrats you finished the quiz");
-			var gameOver = $("#score").val();
+				if (qwert == "") {
+				var gameOver = $("#score").val();
 			window.localStorage.setItem("lastscore", gameOver);
 			location.href="score.html";
 				
@@ -1194,13 +1192,13 @@
 		src = '/android_asset/www/' + src;
 		}
 						if(crossfade=="1"){
-							alert("play music 1");
+						
 							var media1 = new Media(src, success, error_error);
 						
 							media1.play();
 						}
 						else{
-					alert("play music 2");
+			
 					var media2 = new Media(src, success, error_error);
 							
 							media2.play();
@@ -1280,23 +1278,23 @@
 			}
 			else if (m == 8) {
 				if (crossfade == "0") {
-					alert("stop music 1");
+			
 					
 						
 						setTimeout(function () {
 							media1.setVolume('0.0');
-						}, 100);
+						}, 800);
 				
 
 
 				}
 				else {
 
-					alert("stop music 2");
+				
 
 					setTimeout(function () {
 						media2.setVolume('0.0');
-					}, 100);
+					}, 800);
 
 
 				}
