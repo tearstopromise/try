@@ -64,16 +64,23 @@
 			$("#popuptext").html("<h2>Password did not match</h2>");
 			
 		}else{
+		
+						$.mobile.loading('show', {
+						text: 'Connecting to server',
+						textVisible: true,
+						theme: 'a',
+						});
 			$.getJSON("http://opmhenyo.url.ph/quiz_online_files/register_check.php?callback=?",rform.serialize(), function(data)
 			{
 			
 				if (data.eexists == "exists")		//check if email exists
-				{
+				{	
+					$.mobile.loading('hide');
 					$("#popuptext").html("<h4>The email address is already use.</h4>");
 				}
 				else if(data.uexists == "exists")
 				{									//check if username already taken
-					
+					$.mobile.loading('hide');
 					$("#popuptext").html("<h4>This username is already in use.</h4>");
 
 				}
@@ -86,6 +93,7 @@
 						$("#upassword").val("");
 						$("#ucpassword").val("");
 						//modal regcomplete
+						$.mobile.loading('hide');
 						$("#popuptext").html("<h6>Registration Complete!</h6>");
 						setTimeout(function(){window.location.assign("login.html")},2000);
 						//check if login
@@ -99,13 +107,13 @@
 						}
 						
 					}).fail(function(){
-					
+						$.mobile.loading('hide');
 						$("#popuptext").html("<h4>Registration Failed!Check your internet connection.</h4>"); // fail :<
 					});
 
 				}
 			}).fail(function(data){
-				
+				$.mobile.loading('hide');
 				$("#popuptext").html("<h4>Problem with your login, Please check internet connection or try again later.</h4>");
 				// no internet
 				

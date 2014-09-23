@@ -75,10 +75,13 @@ $(document).ready(function(){
 			
 						//alert("You should login to post online");
 			
-					}else if(a == "no internet connection"){
-						//alert("No internet connection");
-						$("#game_over_page_msg").html("No internet connection");
-					}else {
+					}
+					else {
+						$.mobile.loading('show', {
+						text: 'Connecting to server',
+						textVisible: true,
+						theme: 'a',
+						});
 						//check internet
 						$.ajax({
 							url: "http://opmhenyo.url.ph/quiz_online_files/post_score_online.php",
@@ -87,19 +90,21 @@ $(document).ready(function(){
 							success: function(data){
 								if(data=="not"){
 									//alert("Failed");
+									$.mobile.loading('hide');
 									$("#game_over_page_msg").html("Post Score Failed");
 									$("#txtReady").html("There was a problem uploading your score. Please try again.");
 									$("#popupStatus").popup("open");
 								}else if(data=="success"){
 									//alert("Upload ok");
+									$.mobile.loading('hide');
 									$("#game_over_page_msg").html("Your Score was posted online");
-									$('#uploaded').html("uploaded");
+									$('#uploaded').html("Score uploaded");
 
 									$("#txtReady").html("Your Score was posted online!");
 									$("#popupStatus").popup("open");
 								}
 								else{
-								
+									$.mobile.loading('hide');
 									$('#uploaded').html("<center><b>Score Uploaded</b></center>");
 									$("#txtReady").html("Your Score was posted online!");
 									$("#popupStatus").popup("open");

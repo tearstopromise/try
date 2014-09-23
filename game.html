@@ -27,29 +27,38 @@
 			<br /><br />
 		<div id="gamemenu" style="display:none">
 				<div id="developermode" style="display:none">
-					<div id="asdf">Music Player here</div>
-					<div id="ghjk">Music Player here2</div>
 					<input type="text" name="" id="testArray" />
-					<input type="text" name="" id="correct"  disabled />
+					<input type="text" name="" id="correct"  />
 				</div>
-			
-			<label for="">Score:</label>
-			<input type="text" name="" id="score" placeholder="Score ng player" disabled /><br />
-			<label for=""> Timer: </label>
-			<input type="text" name="" id="time" placeholder="timer" disabled />
-			<label for="">Question</label>
-			<textarea name="" id="question" cols="30" rows="10" disabled></textarea><br />
+	
+			<img src="assets/blank.png" style="max-width:50% ">
+			<div id="mygroup" class="ui-body ui-body-e" style="opacity:.95;">
+			<div class="ui-grid-a"  data-role="fieldcontain">
+	<div class="ui-block-a"><center>Timer:</center></div>
+	<div class="ui-block-b"><input type="text" name="" id="time" placeholder="timer" disabled /></div>
+
+
+<div class="ui-block-a"><center>Score:</center></div>	
+<div class="ui-block-b"><input type="text" name="" id="score" placeholder="Score ng player" disabled /><br /></div>		
+</div>
+
+
+</div>
+
+			<br />
+			<br />
+			<center><h3><div id="question"></div><h3></center><br />
 			
 			
 			
 
-			<label for="">Choices</label>
+			<label for="">Choices:</label>
 			<input type="button" value="" id="choice1" class="btn-choice" />
 			<input type="button" value="" id="choice2" class="btn-choice" />
 			<input type="button" value="" id="choice3" class="btn-choice" />
 			<input type="button" value="" id="choice4" class="btn-choice" />
 			
-			<div data-role="popup" id="popupBasic" data-theme="a" class="ui-content" data-position-to="#score" data-transition="flow">
+			<div data-role="popup" id="popupBasic" data-theme="a" class="ui-content" data-position-to="#mygroup" data-transition="flow">
 			<div id="txtcomplement">Complement here</div>
 			</div>
 			</div>
@@ -1152,7 +1161,7 @@
 						var correct = data[get].correct;
 						var mysong1 = data[get].song;
 						//alert(mysong1);
-						$("#question").val(question);
+						$("#question").html(question);
 						
 						$("#choice1").val(choice1);
 						$("#choice2").val(choice2);
@@ -1276,15 +1285,15 @@
 			$("time").val(m);
 
 
-			if (m == 0) {
-				//	alert("Game Over!!! Try Again"+'\n'+"You have to quit the game...");
+			if (m == -1) {
+			
 				clearTimeout(myTime);
 				clearInterval(myTime);
 				var gameOver = $("#score").val();
 				window.localStorage.setItem("lastscore", gameOver);
 				location.href = "score.html";
 			}
-			else if (m == 8) {
+			else if (m == 9) {
 
 				$("#popupBasic").popup("close");
 				$("#popupBasic").popup("close");
