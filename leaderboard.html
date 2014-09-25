@@ -28,6 +28,8 @@
 		<div data-role="content">
 			<center>
 				<img src="assets/title.png" style="max-width:90% ">
+			<table id="leaderboardTable" style="width:100%; background-color:white; opacity:.85;" border="1"><thead><tr><th>Rank</th><th>Username</th><th>Score</th></tr></thead></table>
+			
 			<div id="tablescore">
 			Connecting to server...
 			</div>
@@ -60,7 +62,7 @@
 			type: "GET",
 			dataType: "json",
 			success: function(data){
-				$("#tablescore").html("<table id="leaderboardTable" style="width:100%; background-color:white; opacity:.85;" border="1"><thead><tr><th>Rank</th><th>Username</th><th>Score</th></tr></thead></table>");
+				$("#tablescore").html("");
 				for(var i=0;i<data.length;i++){			//fetch some high scorers
 					rank++
 					$('#leaderboardTable').append(
